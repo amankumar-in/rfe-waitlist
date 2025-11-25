@@ -29,35 +29,16 @@ export const VerificationForm = ({ onComplete }: VerificationFormProps) => {
     questions: "",
   });
 
-  // Check if user already exists and has completed form
+  // Check if user already exists (but don't skip verification)
+  // This is used to pre-fill form data, but verification is still required
   const checkExistingUser = async (email: string) => {
     try {
       const res = await fetch(`/api/users?email=${encodeURIComponent(email)}`);
       const data = await res.json();
       if (data.exists && data.user) {
-        // Check if user has completed the form (has hurdles or dreamCountries)
-        const isComplete = data.user.hurdles?.length > 0 || data.user.dreamCountries?.length > 0;
-        
-        if (isComplete) {
-          // User completed - show roadmap
-          setFormData({ ...formData, ...data.user });
-          if (onComplete) {
-            onComplete(data.user);
-          }
-          return true;
-        } else {
-          // User exists but incomplete - continue from where they left off
-          setFormData({ ...formData, ...data.user });
-          // Determine which step to continue from
-          if (!data.user.whoFor || !data.user.studentGrade) {
-            setStep(2); // Continue from context step
-          } else if (!data.user.dreamCountries?.length) {
-            setStep(3); // Continue from dream step
-          } else if (!data.user.hurdles?.length) {
-            setStep(4); // Continue from hurdles step
-          }
-          return true;
-        }
+        // Pre-fill form data with existing user data
+        setFormData(prev => ({ ...prev, ...data.user }));
+        return true; // User exists, but we still need verification
       }
     } catch (error) {
       console.error("Error checking user:", error);
@@ -108,16 +89,44 @@ export const VerificationForm = ({ onComplete }: VerificationFormProps) => {
               key="verify" 
               email={formData.email} 
               onVerified={async () => {
-                // After OTP verification, fetch user data (account was created)
+                // After OTP verification, fetch user data and determine next step
                 try {
                   const res = await fetch(`/api/users?email=${encodeURIComponent(formData.email)}`);
                   const data = await res.json();
                   if (data.exists && data.user) {
-                    setFormData({ ...formData, ...data.user });
+                    // Load existing user data
+                    const userData = data.user;
+                    setFormData(prev => ({ ...prev, ...userData }));
+                    
+                    // Check if user has completed the form
+                    const isComplete = userData.hurdles?.length > 0 || userData.dreamCountries?.length > 0;
+                    
+                    if (isComplete) {
+                      // User completed - show roadmap
+                      if (onComplete) {
+                        onComplete(userData);
+                      }
+                      return; // Don't proceed to next step, roadmap will be shown
+                    } else {
+                      // User exists but incomplete - continue from where they left off
+                      // Determine which step to continue from
+                      if (!userData.whoFor || !userData.studentGrade) {
+                        setStep(2); // Continue from context step
+                      } else if (!userData.dreamCountries?.length) {
+                        setStep(3); // Continue from dream step
+                      } else if (!userData.hurdles?.length) {
+                        setStep(4); // Continue from hurdles step
+                      } else {
+                        // Shouldn't happen, but default to context step
+                        setStep(2);
+                      }
+                      return;
+                    }
                   }
                 } catch (error) {
                   console.error("Error fetching user:", error);
                 }
+                // New user - proceed to context step
                 nextStep();
               }} 
             />

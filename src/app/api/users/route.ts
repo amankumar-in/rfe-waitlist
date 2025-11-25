@@ -36,12 +36,15 @@ export async function POST(request: Request) {
     const existingUser = await db.collection("users").findOne({ email: userData.email });
     
     if (existingUser) {
+      // Remove _id from userData to prevent immutable field error
+      const { _id, ...updateData } = userData;
+      
       // Update existing user
       const result = await db.collection("users").updateOne(
         { email: userData.email },
         { 
           $set: { 
-            ...userData,
+            ...updateData,
             updatedAt: new Date()
           } 
         }

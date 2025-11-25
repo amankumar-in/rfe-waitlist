@@ -23,16 +23,13 @@ export const StepGate = ({ formData, setFormData, onNext, checkExistingUser }: S
     e.preventDefault();
     setLoading(true);
     try {
-      // First check if user already exists
+      // Check if user already exists to pre-fill data (but still require verification)
       if (checkExistingUser) {
-        const exists = await checkExistingUser(formData.email);
-        if (exists) {
-          setLoading(false);
-          return; // User exists, roadmap will be shown
-        }
+        await checkExistingUser(formData.email);
+        // Note: We don't return early - verification is always required
       }
 
-      // User doesn't exist, proceed with verification
+      // Always proceed with verification (even for existing users)
       const res = await fetch("/api/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
