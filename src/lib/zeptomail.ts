@@ -25,7 +25,11 @@ function getTransporter() {
       auth: {
         user: "emailapikey", // This is literal, not a variable
         pass: ZEPTOMAIL_CONFIG.apiKey
-      }
+      },
+      connectionTimeout: 5000, // 5 seconds timeout for connection
+      greetingTimeout: 5000, // 5 seconds timeout for greeting
+      socketTimeout: 15000, // 15 seconds timeout for socket operations
+      pool: true, // Use connection pooling
     });
   }
   return transporter;
@@ -54,7 +58,13 @@ export async function sendEmail(toEmail: string, toName: string, subject: string
       html: htmlBody,
     };
 
-    const info = await mailTransporter.sendMail(mailOptions);
+    // Add timeout wrapper for email sending (15 seconds total)
+    const emailPromise = mailTransporter.sendMail(mailOptions);
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error("Email sending timeout after 15 seconds")), 15000);
+    });
+
+    const info = await Promise.race([emailPromise, timeoutPromise]);
     
     console.log("Email sent successfully:", info.messageId);
     return { success: true, data: { messageId: info.messageId } };

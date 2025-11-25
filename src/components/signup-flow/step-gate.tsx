@@ -44,6 +44,18 @@ export const StepGate = ({ formData, setFormData, onNext, checkExistingUser }: S
           country: formData.country
         }),
       });
+      
+      if (!res.ok) {
+        const errorText = await res.text();
+        let errorData;
+        try {
+          errorData = JSON.parse(errorText);
+        } catch {
+          errorData = { error: `Server error: ${res.status}` };
+        }
+        throw new Error(errorData.error || errorData.message || "Failed to send verification code");
+      }
+      
       const data = await res.json();
       
       if (data.success) {
@@ -55,12 +67,14 @@ export const StepGate = ({ formData, setFormData, onNext, checkExistingUser }: S
         }
         onNext();
       } else {
-        const errorMsg = data.error || "Failed to send code. Please try again.";
+        const errorMsg = data.error || data.message || "Failed to send code. Please try again.";
         console.error("Email error:", data);
         alert(errorMsg);
       }
     } catch (err) {
-      alert("Something went wrong.");
+      const errorMsg = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      console.error("Error in verification:", err);
+      alert(errorMsg);
     } finally {
       setLoading(false);
     }

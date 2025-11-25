@@ -51,6 +51,18 @@ export const StepVerify = ({ email, onVerified }: StepVerifyProps) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, name: "" }),
       });
+      
+      if (!res.ok) {
+        const errorText = await res.text();
+        let errorData;
+        try {
+          errorData = JSON.parse(errorText);
+        } catch {
+          errorData = { error: `Server error: ${res.status}` };
+        }
+        throw new Error(errorData.error || errorData.message || "Failed to resend code");
+      }
+      
       const data = await res.json();
       if (data.success) {
         if (data.otp && !data.emailSent) {
@@ -62,10 +74,12 @@ export const StepVerify = ({ email, onVerified }: StepVerifyProps) => {
         }
         setOtp(["", "", "", "", "", ""]); // Reset
       } else {
-        alert(data.error || "Failed to resend code. Please try again.");
+        alert(data.error || data.message || "Failed to resend code. Please try again.");
       }
     } catch (err) {
-      alert("Failed to resend code. Please try again.");
+      const errorMsg = err instanceof Error ? err.message : "Failed to resend code. Please try again.";
+      console.error("Error resending code:", err);
+      alert(errorMsg);
     } finally {
       setResending(false);
     }
@@ -79,16 +93,31 @@ export const StepVerify = ({ email, onVerified }: StepVerifyProps) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: code }),
       });
+      
+      if (!res.ok) {
+        const errorText = await res.text();
+        let errorData;
+        try {
+          errorData = JSON.parse(errorText);
+        } catch {
+          errorData = { error: `Server error: ${res.status}` };
+        }
+        throw new Error(errorData.error || errorData.message || "Verification failed");
+      }
+      
       const data = await res.json();
       if (data.success) {
         // Account is created/verified, now continue
         onVerified();
       } else {
-        alert("Invalid code. Please try again.");
+        alert(data.error || data.message || "Invalid code. Please try again.");
         setOtp(["", "", "", "", "", ""]); // Reset
       }
     } catch (err) {
-      alert("Verification failed.");
+      const errorMsg = err instanceof Error ? err.message : "Verification failed. Please try again.";
+      console.error("Error verifying code:", err);
+      alert(errorMsg);
+      setOtp(["", "", "", "", "", ""]); // Reset
     } finally {
       setLoading(false);
     }

@@ -7,13 +7,46 @@ import clientPromise from "@/lib/mongodb";
 const otpStore = new Map<string, { otp: string; formData: any }>();
 
 export async function POST(request: Request) {
+  const startTime = Date.now();
   try {
     const { email, name, firstName, lastName, country } = await request.json();
     
-    // Check if user already exists
-    const client = await clientPromise;
+    console.log(`[verify-email] Starting verification for: ${email}`);
+    
+    // Get MongoDB client with timeout
+    console.log(`[verify-email] Getting MongoDB client...`);
+    const clientStartTime = Date.now();
+    let client;
+    try {
+      client = await Promise.race([
+        clientPromise,
+        new Promise<never>((_, reject) => 
+          setTimeout(() => reject(new Error("MongoDB connection timeout after 10 seconds")), 10000)
+        )
+      ]);
+      console.log(`[verify-email] MongoDB client ready in ${Date.now() - clientStartTime}ms`);
+    } catch (error) {
+      console.error(`[verify-email] MongoDB connection failed after ${Date.now() - clientStartTime}ms:`, error);
+      throw new Error(`Database connection failed: ${error instanceof Error ? error.message : String(error)}`);
+    }
+    
     const db = client.db("rfe_waitlist");
-    const existingUser = await db.collection("users").findOne({ email });
+    
+    console.log(`[verify-email] Checking existing user...`);
+    const queryStartTime = Date.now();
+    let existingUser;
+    try {
+      existingUser = await Promise.race([
+        db.collection("users").findOne({ email }),
+        new Promise<null>((_, reject) => 
+          setTimeout(() => reject(new Error("Database query timeout after 10 seconds")), 10000)
+        )
+      ]);
+      console.log(`[verify-email] User check completed in ${Date.now() - queryStartTime}ms (total: ${Date.now() - startTime}ms)`);
+    } catch (error) {
+      console.error(`[verify-email] Database query failed after ${Date.now() - queryStartTime}ms:`, error);
+      throw new Error(`Database query failed: ${error instanceof Error ? error.message : String(error)}`);
+    }
     
     if (existingUser) {
       // User exists, send OTP but don't create new account
@@ -21,6 +54,8 @@ export async function POST(request: Request) {
       otpStore.set(email, { otp, formData: existingUser });
       
       // Send email
+      console.log(`[verify-email] Sending email to existing user...`);
+      const emailStartTime = Date.now();
       const emailResult = await sendEmail(
         email, 
         name || firstName || "User", 
@@ -35,6 +70,7 @@ export async function POST(request: Request) {
           <p style="font-size: 14px; color: #666;">This code will expire in 10 minutes.</p>
         </div>`
       );
+      console.log(`[verify-email] Email send completed in ${Date.now() - emailStartTime}ms`);
 
       if (!emailResult.success) {
         const isDevelopment = process.env.NODE_ENV === 'development';
@@ -48,6 +84,7 @@ export async function POST(request: Request) {
         }
       }
 
+      console.log(`[verify-email] Total time: ${Date.now() - startTime}ms`);
       return NextResponse.json({ success: true, message: "OTP sent", emailSent: true, existingUser: true });
     }
     
@@ -61,6 +98,8 @@ export async function POST(request: Request) {
     });
     
     // Send Email
+    console.log(`[verify-email] Sending email to new user...`);
+    const emailStartTime = Date.now();
     const emailResult = await sendEmail(
       email, 
       name || "User", 
@@ -76,6 +115,7 @@ export async function POST(request: Request) {
         <p style="font-size: 14px; color: #666;">If you didn't request this code, please ignore this email.</p>
       </div>`
     );
+    console.log(`[verify-email] Email send completed in ${Date.now() - emailStartTime}ms`);
 
     if (!emailResult.success) {
       console.error("Failed to send email", emailResult);
@@ -102,10 +142,14 @@ export async function POST(request: Request) {
       }
     }
 
-    console.log(`Email sent successfully to ${email}`);
+    console.log(`[verify-email] Email sent successfully to ${email}. Total time: ${Date.now() - startTime}ms`);
     return NextResponse.json({ success: true, message: "OTP sent", emailSent: true });
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    console.error(`[verify-email] Error after ${Date.now() - startTime}ms:`, error);
+    return NextResponse.json({ 
+      error: "Internal Server Error",
+      message: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
 }
 
