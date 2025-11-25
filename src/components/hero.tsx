@@ -51,7 +51,9 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
             src="/assets/images/hero2.webp"
             alt="Background"
             fill
-            className="object-cover opacity-40 mix-blend-overlay"
+            sizes="100vw"
+            style={{ objectFit: "cover" }}
+            className="opacity-40 mix-blend-overlay"
             priority
           />
           <div className="absolute inset-0 bg-white/60 mix-blend-lighten" />
