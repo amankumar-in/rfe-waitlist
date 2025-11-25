@@ -8,6 +8,9 @@ export async function GET() {
     
     const totalUsers = await db.collection("users").countDocuments();
     
+    // Get total unique visitors count
+    const totalVisitors = await db.collection("visitors").countDocuments();
+    
     // Get hurdle statistics
     const hurdleStats = await db.collection("users").aggregate([
       { $unwind: "$hurdles" },
@@ -17,6 +20,7 @@ export async function GET() {
 
     return NextResponse.json({ 
       totalUsers,
+      totalVisitors,
       hurdleStats: hurdleStats.reduce((acc, item) => {
         acc[item._id] = item.count;
         return acc;
@@ -24,7 +28,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Error fetching stats:", error);
-    return NextResponse.json({ totalUsers: 0, hurdleStats: {} });
+    return NextResponse.json({ totalUsers: 0, totalVisitors: 0, hurdleStats: {} });
   }
 }
 

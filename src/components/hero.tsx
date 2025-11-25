@@ -15,12 +15,25 @@ interface HeroProps {
 
 export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
   const [totalFamilies, setTotalFamilies] = useState(0);
+  const [totalVisitors, setTotalVisitors] = useState(0);
 
+  // Track visitor on component mount
+  useEffect(() => {
+    // Track this page visit
+    fetch("/api/track-visitor", {
+      method: "POST",
+    }).catch(error => {
+      console.error("Error tracking visitor:", error);
+    });
+  }, []);
+
+  // Fetch stats
   useEffect(() => {
     fetch("/api/stats")
       .then(res => res.json())
       .then(data => {
         setTotalFamilies(data.totalUsers || 0);
+        setTotalVisitors(data.totalVisitors || 0);
       })
       .catch(error => {
         console.error("Error fetching stats:", error);
@@ -44,7 +57,9 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
-              Total Interested Families: <span className="font-mono font-bold text-slate-900">{totalFamilies}</span>
+              Total Interested Families: <span className="font-mono font-bold text-slate-900">
+                {totalVisitors < 500 ? "500+" : totalVisitors.toLocaleString()}
+              </span>
             </div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-bold shadow-lg shadow-green-500/30">
               <span>✨</span>

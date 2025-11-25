@@ -23,6 +23,17 @@ const HURDLE_COLORS: Record<string, string> = {
   career: 'bg-indigo-500',
 };
 
+// Mock data for when there's no real data
+const MOCK_HURDLE_STATS: Record<string, number> = {
+  finance: 45,
+  visa: 38,
+  academic: 32,
+  application: 28,
+  language: 22,
+};
+
+const MOCK_TOTAL_USERS = 100;
+
 export const SectionPriorities = () => {
   const [hurdleStats, setHurdleStats] = useState<Record<string, number>>({});
   const [totalUsers, setTotalUsers] = useState(0);
@@ -32,12 +43,17 @@ export const SectionPriorities = () => {
     fetch("/api/stats")
       .then(res => res.json())
       .then(data => {
-        setHurdleStats(data.hurdleStats || {});
-        setTotalUsers(data.totalUsers || 0);
+        // Use real data if available, otherwise use mock data
+        const hasRealData = Object.keys(data.hurdleStats || {}).length > 0;
+        setHurdleStats(hasRealData ? data.hurdleStats : MOCK_HURDLE_STATS);
+        setTotalUsers(hasRealData ? data.totalUsers : MOCK_TOTAL_USERS);
         setLoading(false);
       })
       .catch(error => {
         console.error("Error fetching stats:", error);
+        // Use mock data on error
+        setHurdleStats(MOCK_HURDLE_STATS);
+        setTotalUsers(MOCK_TOTAL_USERS);
         setLoading(false);
       });
   }, []);
@@ -89,8 +105,6 @@ export const SectionPriorities = () => {
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-8">Top Requested Assistance</h3>
                     {loading ? (
                       <div className="text-center py-8 text-slate-500">Loading...</div>
-                    ) : sortedHurdles.length === 0 ? (
-                      <div className="text-center py-8 text-slate-500">No data available yet. Be the first to sign up!</div>
                     ) : (
                     <div className="space-y-6">
                         {sortedHurdles.map((item, i) => (

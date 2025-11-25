@@ -34,8 +34,13 @@ export const SectionCTA = () => {
             ))}
         </div>
 
-        <button className="inline-flex items-center gap-2 bg-brand-DEFAULT hover:bg-brand-dark text-white text-lg font-bold px-8 py-4 rounded-full transition-all hover:scale-105 shadow-lg shadow-brand-DEFAULT/25">
-            Create Free Account
+        <button 
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="inline-flex items-center gap-2 bg-brand-DEFAULT hover:bg-brand-dark text-white text-lg font-bold px-8 py-4 rounded-full transition-all hover:scale-105 shadow-lg shadow-brand-DEFAULT/25"
+        >
+            Join Waitlist
             <ArrowRight className="w-5 h-5" />
         </button>
         
