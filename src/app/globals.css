@@ -31,6 +31,11 @@
   border-radius: var(--radius-pill);
 }
 
+@utility animate-shine {
+  background-size: 200% auto;
+  animation: shine 8s linear infinite;
+}
+
 /* Base Styles */
 @layer base {
   body {
@@ -74,4 +79,10 @@
 
 .form-container {
   animation: formGrow 0.3s ease-out;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
 }

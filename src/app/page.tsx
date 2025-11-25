@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Hero } from "@/components/hero";
+import { StickyHeader } from "@/components/ui/sticky-header";
 import { SectionRoadmap } from "@/components/sections/section-roadmap";
 import { SectionDestinations } from "@/components/sections/section-destinations";
 import { SectionProductEngine } from "@/components/sections/section-product-engine";
@@ -16,6 +17,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-950 overflow-x-hidden selection:bg-brand-DEFAULT/30">
+      <StickyHeader />
       <Hero showForm={!roadmapData} onFormComplete={setRoadmapData} />
       {roadmapData && <SectionRoadmap formData={roadmapData} setFormData={setRoadmapData} />}
       <SectionDestinations />

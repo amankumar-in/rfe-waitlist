@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { StripeMeshGradient } from "@/components/ui/stripe-mesh-gradient";
 import { VerificationForm } from "@/components/signup-flow";
 import { PhoneMockup } from "@/components/phone-mockup";
@@ -45,6 +46,23 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
       {/* Diagonal Gradient Background */}
       <div className="absolute inset-0 z-0 [clip-path:polygon(0_0,100%_0,100%_42.5%,0_17.5%)]">
         <StripeMeshGradient />
+      </div>
+
+      <div className="absolute top-0 left-0 w-full z-20 pt-6">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center gap-3">
+            <Image 
+              src="/assets/images/global.png" 
+              alt="Globe Icon" 
+              width={24} 
+              height={24} 
+              className="w-6 h-6"
+            />
+            <span className="font-heading font-extrabold text-xl tracking-wider animate-shine bg-[linear-gradient(110deg,#0A2540,45%,#635BFF,55%,#0A2540)] bg-[length:200%_100%] bg-clip-text text-transparent">
+              REWARDS FOR EDUCATION
+            </span>
+          </div>
+        </div>
       </div>
       
       <div className="container mx-auto px-4 relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center pt-20 lg:pt-32 pb-20">
