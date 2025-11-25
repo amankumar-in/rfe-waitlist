@@ -23,16 +23,16 @@ const HURDLE_COLORS: Record<string, string> = {
   career: 'bg-indigo-500',
 };
 
-// Mock data for when there's no real data
+// Mock data for when there's no real data or fewer than 5000 users
 const MOCK_HURDLE_STATS: Record<string, number> = {
-  finance: 45,
-  visa: 38,
-  academic: 32,
-  application: 28,
-  language: 22,
+  finance: 4250,
+  visa: 3850,
+  academic: 2100,
+  application: 1850,
+  language: 1250,
 };
 
-const MOCK_TOTAL_USERS = 100;
+const MOCK_TOTAL_USERS = 5240;
 
 export const SectionPriorities = () => {
   const [hurdleStats, setHurdleStats] = useState<Record<string, number>>({});
@@ -43,10 +43,16 @@ export const SectionPriorities = () => {
     fetch("/api/stats")
       .then(res => res.json())
       .then(data => {
-        // Use real data if available, otherwise use mock data
-        const hasRealData = Object.keys(data.hurdleStats || {}).length > 0;
-        setHurdleStats(hasRealData ? data.hurdleStats : MOCK_HURDLE_STATS);
-        setTotalUsers(hasRealData ? data.totalUsers : MOCK_TOTAL_USERS);
+        // Use mock data if total users are less than 5000, otherwise use real data
+        const realTotalUsers = data.totalUsers || 0;
+        
+        if (realTotalUsers > 5000) {
+          setHurdleStats(data.hurdleStats || {});
+          setTotalUsers(realTotalUsers);
+        } else {
+          setHurdleStats(MOCK_HURDLE_STATS);
+          setTotalUsers(MOCK_TOTAL_USERS);
+        }
         setLoading(false);
       })
       .catch(error => {
@@ -111,7 +117,7 @@ export const SectionPriorities = () => {
                           <div key={item.id}>
                                 <div className="flex justify-between text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                                     <span>{item.label}</span>
-                              <span>{item.percentage}% ({item.count} {item.count === 1 ? 'family' : 'families'})</span>
+                              <span>{item.percentage}% ({item.count.toLocaleString()} {item.count === 1 ? 'family' : 'families'})</span>
                                 </div>
                                 <div className="h-3 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
                                     <motion.div 
