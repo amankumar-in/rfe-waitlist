@@ -45,7 +45,21 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
     <section className="relative min-h-screen flex items-center overflow-hidden bg-white">
       {/* Diagonal Gradient Background */}
       <div className="absolute inset-0 z-0 [clip-path:polygon(0_0,100%_0,100%_42.5%,0_17.5%)]">
-        <StripeMeshGradient />
+        {/* OG Image Background with Blending */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/assets/images/hero2.webp"
+            alt="Background"
+            fill
+            className="object-cover opacity-40 mix-blend-overlay"
+            priority
+          />
+          <div className="absolute inset-0 bg-white/60 mix-blend-lighten" />
+        </div>
+        
+        <div className="relative z-10 h-full">
+          <StripeMeshGradient />
+        </div>
       </div>
 
       <div className="absolute top-0 left-0 w-full z-20 pt-6">
