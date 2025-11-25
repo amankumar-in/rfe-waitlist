@@ -44,7 +44,7 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-white">
       {/* Diagonal Gradient Background */}
-      <div className="absolute inset-0 z-0 [clip-path:polygon(0_0,100%_0,100%_42.5%,0_17.5%)]">
+      <div className="absolute inset-0 z-0 [clip-path:polygon(0_0,100%_0,100%_75%,0_30%)] lg:[clip-path:polygon(0_0,100%_0,100%_42.5%,0_17.5%)]">
         {/* OG Image Background with Blending */}
         <div className="absolute inset-0 z-0">
           <Image
