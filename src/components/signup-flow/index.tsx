@@ -7,6 +7,7 @@ import { StepVerify } from "./step-verify";
 import { StepContext } from "./step-context";
 import { StepDream } from "./step-dream";
 import { StepHurdles } from "./step-hurdles";
+import { detectUserCountry } from "@/lib/location";
 
 interface VerificationFormProps {
   onComplete?: (formData: any) => void;
@@ -31,29 +32,21 @@ export const VerificationForm = ({ onComplete }: VerificationFormProps) => {
 
   // Prefill country based on user's location
   useEffect(() => {
-    const detectCountry = async () => {
+    const initCountry = async () => {
       // If country is already set, don't overwrite
       if (formData.country) return;
 
-      try {
-        const res = await fetch('/api/location');
-        if (res.ok) {
-          const data = await res.json();
-          console.log("[Signup] Auto-detected country:", data.country);
-          if (data.country) {
-            setFormData(prev => {
-                // Only update if country is not set
-                if (prev.country) return prev;
-                return { ...prev, country: data.country };
-            });
-          }
-        }
-      } catch (error) {
-        console.error("Failed to auto-detect country:", error);
+      const countryCode = await detectUserCountry();
+      if (countryCode) {
+        setFormData(prev => {
+          // Only update if country is still not set
+          if (prev.country) return prev;
+          return { ...prev, country: countryCode };
+        });
       }
     };
 
-    detectCountry();
+    initCountry();
   }, []);
 
   // Check if user already exists (but don't skip verification)
