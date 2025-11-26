@@ -136,9 +136,9 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
               animate={{ opacity: 1, y: 0 }}
               className="text-center"
             >
-              <div className="bg-gradient-to-br from-brand-DEFAULT/10 to-brand-accent/10 rounded-2xl p-8 border border-brand-DEFAULT/20">
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Your Roadmap is Ready!</h3>
-                <p className="text-slate-600 mb-6">
+              <div className="bg-gradient-to-br from-brand-DEFAULT/10 to-brand-accent/10 dark:from-brand-DEFAULT/20 dark:to-brand-accent/20 rounded-2xl p-8 border border-brand-DEFAULT/20 dark:border-brand-DEFAULT/30 backdrop-blur-sm">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Your Roadmap is Ready!</h3>
+                <p className="text-slate-600 dark:text-slate-300 mb-6">
                   View your personalized roadmap and next steps below.
                 </p>
                 <button

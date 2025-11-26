@@ -50,6 +50,17 @@ export const SectionRoadmap = ({ formData, setFormData }: SectionRoadmapProps) =
     return "the";
   };
 
+  const getSubject = (capitalize = false) => {
+    const subject = formData.whoFor === 'myself' ? 'you' : 
+                   formData.whoFor === 'child' ? 'your child' :
+                   formData.whoFor === 'student' ? 'your student' : 'the student';
+    return capitalize ? subject.charAt(0).toUpperCase() + subject.slice(1) : subject;
+  };
+
+  const getTargetPronoun = () => {
+     return formData.whoFor === 'myself' ? 'you' : 'they';
+  };
+
   return (
     <section ref={roadmapRef} id="roadmap" className="py-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-4">
@@ -78,9 +89,11 @@ export const SectionRoadmap = ({ formData, setFormData }: SectionRoadmapProps) =
               <div className="flex items-start gap-4">
                 <Target className="w-8 h-8 text-brand-DEFAULT flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3">You're Almost Certain to Get In</h3>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                    {formData.whoFor === 'myself' ? "You're" : `${getSubject(true)} is`} Almost Certain to Get In
+                  </h3>
                   <p className="text-base text-slate-700 leading-relaxed">
-                    Based on {getWhoFor()} profile and goals, there's a <strong>high probability</strong> of securing admission to {getWhoFor()} desired colleges. When we launch, {formData.whoFor === 'myself' ? 'you' : 'they'} will be among the <strong>first to connect directly</strong> with partner institutions and get priority access to exclusive opportunities.
+                    Based on {getWhoFor()} profile and goals, there's a <strong>high probability</strong> of securing admission to {getWhoFor()} desired colleges. When we launch, {getTargetPronoun()} will be among the <strong>first to connect directly</strong> with partner institutions and get priority access to exclusive opportunities.
                   </p>
                 </div>
               </div>
@@ -94,8 +107,16 @@ export const SectionRoadmap = ({ formData, setFormData }: SectionRoadmapProps) =
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-sm font-medium text-slate-700">Name:</span>{" "}
+                    <span className="text-sm font-medium text-slate-700">Account Name:</span>{" "}
                     <span className="text-base text-slate-900 font-medium">{formData.firstName} {formData.lastName}</span>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-sm font-medium text-slate-700">Role:</span>{" "}
+                    <span className="text-base text-slate-900 font-medium capitalize">{formData.whoFor === 'myself' ? 'Student' : formData.whoFor === 'child' ? 'Parent' : formData.whoFor}</span>
                   </div>
                 </div>
                 
