@@ -48,7 +48,7 @@ export const StickyHeader = () => {
                   height={24} 
                   className="w-6 h-6"
                 />
-                <span className="font-heading font-extrabold text-lg tracking-wider animate-shine bg-[linear-gradient(110deg,#0A2540,45%,#635BFF,55%,#0A2540)] bg-[length:200%_100%] bg-clip-text text-transparent hidden sm:block">
+                <span className="font-heading font-extrabold text-lg tracking-wider animate-shine bg-[linear-gradient(110deg,#0A2540,45%,#635BFF,55%,#0A2540)] dark:bg-[linear-gradient(110deg,#fff,45%,#635BFF,55%,#fff)] bg-[length:200%_100%] bg-clip-text text-transparent hidden sm:block">
                   REWARDS FOR EDUCATION
                 </span>
               </div>

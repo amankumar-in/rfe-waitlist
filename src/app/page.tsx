@@ -8,6 +8,7 @@ import { SectionDestinations } from "@/components/sections/section-destinations"
 import { SectionProductEngine } from "@/components/sections/section-product-engine";
 import { SectionLanguage } from "@/components/sections/section-language";
 import { SectionApplication } from "@/components/sections/section-application";
+import { SectionScholarships } from "@/components/sections/section-scholarships";
 import { SectionCost } from "@/components/sections/section-cost";
 import { SectionPriorities } from "@/components/sections/section-priorities";
 import { SectionCTA } from "@/components/sections/section-cta";
@@ -20,6 +21,7 @@ export default function Home() {
       <StickyHeader />
       <Hero showForm={!roadmapData} onFormComplete={setRoadmapData} />
       {roadmapData && <SectionRoadmap formData={roadmapData} setFormData={setRoadmapData} />}
+      <SectionScholarships />
       <SectionDestinations />
       <SectionProductEngine />
       <SectionLanguage />

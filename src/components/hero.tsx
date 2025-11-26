@@ -42,7 +42,12 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-white">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-white dark:bg-slate-950 dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-950 transition-colors duration-300">
+      {/* Background Pattern for Dark Mode */}
+      <div className="absolute inset-0 hidden dark:block opacity-20 pointer-events-none">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light"></div>
+      </div>
+
       {/* Diagonal Gradient Background */}
       <div className="absolute inset-0 z-0 [clip-path:polygon(0_0,100%_0,100%_75%,0_30%)] lg:[clip-path:polygon(0_0,100%_0,100%_42.5%,0_17.5%)]">
         {/* OG Image Background with Blending */}
@@ -56,10 +61,10 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
             className="opacity-40 mix-blend-overlay"
             priority
           />
-          <div className="absolute inset-0 bg-white/60 mix-blend-lighten" />
+          <div className="absolute inset-0 bg-white/60 dark:bg-slate-950/30 mix-blend-lighten dark:mix-blend-normal" />
         </div>
         
-        <div className="relative z-10 h-full">
+        <div className="relative z-10 h-full opacity-70 dark:opacity-80">
           <StripeMeshGradient />
         </div>
       </div>
@@ -74,7 +79,7 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
               height={24} 
               className="w-6 h-6"
             />
-            <span className="font-heading font-extrabold text-xl tracking-wider animate-shine bg-[linear-gradient(110deg,#0A2540,45%,#635BFF,55%,#0A2540)] bg-[length:200%_100%] bg-clip-text text-transparent">
+            <span className="font-heading font-extrabold text-xl tracking-wider animate-shine bg-[linear-gradient(110deg,#0A2540,45%,#635BFF,55%,#0A2540)] dark:bg-[linear-gradient(110deg,#fff,45%,#635BFF,55%,#fff)] bg-[length:200%_100%] bg-clip-text text-transparent">
               REWARDS FOR EDUCATION
             </span>
           </div>
@@ -86,29 +91,36 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
         {/* Left Column: Content */}
         <div className="text-center lg:text-left">
           <div className="flex flex-wrap items-center gap-3 mb-8 justify-center lg:justify-start">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-sm text-slate-600">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
-              <span className="font-mono font-bold text-slate-900">
+              <span className="font-mono font-bold text-slate-900 dark:text-white">
                 {totalVisitors < 500 ? "500+" : totalVisitors.toLocaleString()}
               </span> Interested Families
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-bold shadow-lg shadow-green-500/30">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm font-bold">
               <span>✨</span>
               <span>100% Free</span>
             </div>
           </div>
 
-          <h1 className="text-5xl lg:text-7xl font-heading font-bold text-slate-900 leading-[1.1] tracking-tight mb-6" style={{ position: 'relative' }}>
+          <h1 className="text-5xl lg:text-7xl font-heading font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight mb-6" style={{ position: 'relative' }}>
             3 Guaranteed Offers <br />
             <DynamicContrastText />
           </h1>
           
-          <p className="text-xl text-slate-600 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-            Get the <strong className="text-slate-900">tools and support</strong> you need to secure your seat. From <strong className="text-slate-900">AI tutoring</strong> and <strong className="text-slate-900">finance planning</strong> to <strong className="text-slate-900">visa documentation</strong> assistance—helping you navigate every step of your journey.
+          <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Get the <strong className="text-slate-900 dark:text-white">tools and support</strong> you need to secure your seat. From <strong className="text-slate-900 dark:text-white">AI tutoring</strong> and <strong className="text-slate-900 dark:text-white">finance planning</strong> to <strong className="text-slate-900 dark:text-white">visa documentation</strong> assistance—helping you navigate every step of your journey.
           </p>
+
+          <div className="flex justify-center lg:justify-start mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 text-sm font-bold hover:scale-105 transition-transform cursor-default">
+              <span>🎓</span>
+              <span>Scholarships Up to $120,000 Available</span>
+            </div>
+          </div>
         </div>
 
         {/* Right Column: Interactive Form or View Roadmap Button */}
