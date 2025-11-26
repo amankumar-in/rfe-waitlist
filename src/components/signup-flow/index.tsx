@@ -29,6 +29,33 @@ export const VerificationForm = ({ onComplete }: VerificationFormProps) => {
     questions: "",
   });
 
+  // Prefill country based on user's location
+  useEffect(() => {
+    const detectCountry = async () => {
+      // If country is already set, don't overwrite
+      if (formData.country) return;
+
+      try {
+        const res = await fetch('/api/location');
+        if (res.ok) {
+          const data = await res.json();
+          console.log("[Signup] Auto-detected country:", data.country);
+          if (data.country) {
+            setFormData(prev => {
+                // Only update if country is not set
+                if (prev.country) return prev;
+                return { ...prev, country: data.country };
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Failed to auto-detect country:", error);
+      }
+    };
+
+    detectCountry();
+  }, []);
+
   // Check if user already exists (but don't skip verification)
   // This is used to pre-fill form data, but verification is still required
   const checkExistingUser = async (email: string) => {
