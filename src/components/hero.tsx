@@ -79,7 +79,7 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
               height={24} 
               className="w-6 h-6"
             />
-            <span className="font-heading font-extrabold text-xl tracking-wider animate-shine bg-[linear-gradient(110deg,#0A2540,45%,#635BFF,55%,#0A2540)] dark:bg-[linear-gradient(110deg,#fff,45%,#635BFF,55%,#fff)] bg-[length:200%_100%] bg-clip-text text-transparent">
+            <span className="font-heading font-extrabold text-xl tracking-wider text-slate-900 dark:text-white">
               REWARDS FOR EDUCATION
             </span>
           </div>
@@ -111,7 +111,7 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
             <DynamicContrastText />
           </h1>
           
-          <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          <p className="hidden lg:block text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
             Get the <strong className="text-slate-900 dark:text-white">tools and support</strong> you need to secure your seat. From <strong className="text-slate-900 dark:text-white">AI tutoring</strong> and <strong className="text-slate-900 dark:text-white">finance planning</strong> to <strong className="text-slate-900 dark:text-white">visa documentation</strong> assistance—helping you navigate every step of your journey.
           </p>
 
@@ -126,8 +126,12 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
         {/* Right Column: Interactive Form or View Roadmap Button */}
         {showForm ? (
           <div className="w-full max-w-md mx-auto lg:mr-0 relative">
-             <div className="absolute -inset-1 bg-gradient-to-r from-brand-accent to-brand-DEFAULT rounded-2xl blur opacity-20 animate-pulse"></div>
+             <div className="absolute -inset-1 bg-gradient-to-r from-brand-accent to-brand-DEFAULT rounded-2xl blur opacity-20"></div>
              <VerificationForm onComplete={onFormComplete} />
+             {/* Mobile only - description after form */}
+             <p className="lg:hidden text-xl text-slate-600 dark:text-slate-300 mt-8 max-w-xl mx-auto text-center leading-relaxed">
+               Get the <strong className="text-slate-900 dark:text-white">tools and support</strong> you need to secure your seat. From <strong className="text-slate-900 dark:text-white">AI tutoring</strong> and <strong className="text-slate-900 dark:text-white">finance planning</strong> to <strong className="text-slate-900 dark:text-white">visa documentation</strong> assistance—helping you navigate every step of your journey.
+             </p>
           </div>
         ) : (
           <div className="w-full max-w-md mx-auto lg:mr-0">

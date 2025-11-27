@@ -1,24 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 export const StickyHeader = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const ticking = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show header after scrolling past 100px
-      if (window.scrollY > 100) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      if (ticking.current) return;
+      
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        // Show header after scrolling past 100px
+        const shouldShow = window.scrollY > 100;
+        setIsVisible(prev => prev !== shouldShow ? shouldShow : prev);
+        ticking.current = false;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -48,7 +52,7 @@ export const StickyHeader = () => {
                   height={24} 
                   className="w-6 h-6"
                 />
-                <span className="font-heading font-extrabold text-lg tracking-wider animate-shine bg-[linear-gradient(110deg,#0A2540,45%,#635BFF,55%,#0A2540)] dark:bg-[linear-gradient(110deg,#fff,45%,#635BFF,55%,#fff)] bg-[length:200%_100%] bg-clip-text text-transparent hidden sm:block">
+                <span className="font-heading font-extrabold text-lg tracking-wider text-slate-900 dark:text-white hidden sm:block">
                   REWARDS FOR EDUCATION
                 </span>
               </div>

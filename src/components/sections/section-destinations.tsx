@@ -47,6 +47,7 @@ export const SectionDestinations = () => {
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${item.percent}%` }}
+                    viewport={{ once: true }}
                     transition={{ duration: 1, delay: index * 0.1 }}
                     className={`h-full ${item.color} rounded-full`}
                   />

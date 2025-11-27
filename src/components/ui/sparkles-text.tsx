@@ -1,5 +1,7 @@
-import { CSSProperties, ReactElement, useEffect, useState } from "react"
-import { motion } from "motion/react"
+"use client"
+
+import { CSSProperties, ReactElement, useEffect, useState, useRef } from "react"
+import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
 
@@ -90,6 +92,9 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
   ...props
 }) => {
   const [sparkles, setSparkles] = useState<Sparkle[]>([])
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isActiveRef = useRef(true)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const generateStar = (): Sparkle => {
@@ -109,6 +114,7 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
     }
 
     const updateStars = () => {
+      if (!isActiveRef.current) return
       setSparkles((currentSparkles) =>
         currentSparkles.map((star) => {
           if (star.lifespan <= 0) {
@@ -120,14 +126,68 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
       )
     }
 
-    initializeStars()
-    const interval = setInterval(updateStars, 100)
+    const startInterval = () => {
+      if (intervalRef.current) return
+      intervalRef.current = setInterval(updateStars, 100)
+    }
 
-    return () => clearInterval(interval)
+    const stopInterval = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
+
+    // Intersection Observer - pause when out of viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !document.hidden) {
+            isActiveRef.current = true
+            startInterval()
+          } else {
+            isActiveRef.current = false
+            stopInterval()
+          }
+        })
+      },
+      { threshold: 0 }
+    )
+
+    // Page Visibility - pause when tab hidden
+    const handleVisibility = () => {
+      if (document.hidden) {
+        isActiveRef.current = false
+        stopInterval()
+      } else if (containerRef.current) {
+        // Only restart if in viewport
+        const rect = containerRef.current.getBoundingClientRect()
+        const inViewport = rect.top < window.innerHeight && rect.bottom > 0
+        if (inViewport) {
+          isActiveRef.current = true
+          startInterval()
+        }
+      }
+    }
+
+    initializeStars()
+    startInterval()
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+    document.addEventListener("visibilitychange", handleVisibility)
+
+    return () => {
+      stopInterval()
+      observer.disconnect()
+      document.removeEventListener("visibilitychange", handleVisibility)
+    }
   }, [colors.first, colors.second, sparklesCount])
 
   return (
     <div
+      ref={containerRef}
       className={cn("text-6xl font-bold", className)}
       {...props}
       style={

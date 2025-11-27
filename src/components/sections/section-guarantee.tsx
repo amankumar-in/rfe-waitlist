@@ -9,6 +9,7 @@ export const SectionGuarantee = () => {
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="text-4xl lg:text-7xl font-heading font-bold leading-tight tracking-tight"
         >
@@ -19,6 +20,7 @@ export const SectionGuarantee = () => {
         <motion.p 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.8 }}
             className="mt-8 text-xl lg:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed"
         >

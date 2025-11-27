@@ -35,8 +35,8 @@ export const SectionScholarships = () => {
     <section className="py-24 bg-slate-900 dark:bg-slate-950 text-white relative overflow-hidden">
       {/* Background gradient effects */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">

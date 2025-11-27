@@ -122,7 +122,8 @@ export const SectionPriorities = () => {
                                 <div className="h-3 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
                                     <motion.div 
                                         initial={{ width: 0 }}
-                                whileInView={{ width: `${item.percentage}%` }}
+                                        whileInView={{ width: `${item.percentage}%` }}
+                                        viewport={{ once: true }}
                                         transition={{ duration: 1, delay: i * 0.1 }}
                                         className={`h-full ${item.color} rounded-full`}
                                     />
