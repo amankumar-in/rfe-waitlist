@@ -91,7 +91,7 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
         {/* Left Column: Content */}
         <div className="text-center lg:text-left">
           <div className="flex flex-wrap items-center gap-3 mb-8 justify-center lg:justify-start">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300">
+            {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -99,7 +99,7 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
               <span className="font-mono font-bold text-slate-900 dark:text-white">
                 {totalVisitors < 500 ? "500+" : totalVisitors.toLocaleString()}
               </span> Interested Families
-            </div>
+            </div> */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm font-bold">
               <span>✨</span>
               <span>100% Free</span>

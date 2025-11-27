@@ -59,14 +59,13 @@ export const SectionProductEngine = () => {
 
         </div>
 
-        {/* Scholarship Ticker */}
+        {/* Scholarship Ticker - Hidden for now
         <div className="mt-24 pt-12 border-t border-slate-100 dark:border-slate-800">
             <p className="text-center text-sm font-bold text-slate-400 uppercase tracking-wider mb-8">
                 Scholarships & Financial Partners
             </p>
             <div className="relative flex overflow-x-hidden group">
                 <div className="animate-marquee whitespace-nowrap flex items-center gap-16">
-                    {/* Double the list for seamless loop */}
                     {[...Array(2)].map((_, i) => (
                         <div key={i} className="flex items-center gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
                             <span className="text-2xl font-bold text-slate-400">Rhodes Trust</span>
@@ -94,6 +93,7 @@ export const SectionProductEngine = () => {
                 </div>
             </div>
         </div>
+        */}
 
       </div>
     </section>

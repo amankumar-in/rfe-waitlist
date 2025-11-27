@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: "Rewards For Education",
     images: [
       {
-        url: "/assets/images/og-image.jpg",
+        url: "https://rewardsforeducation.com/assets/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Rewards For Education - Global Learning Opportunities",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rewards For Education | Your Global Future Starts Here",
     description: "Get 3 Guaranteed Offers. Tools and support for your international education journey.",
-    images: ["/assets/images/og-image.jpg"],
+    images: ["https://rewardsforeducation.com/assets/images/og-image.jpg"],
     creator: "@rewardsforedu", // Placeholder
   },
   robots: {

@@ -1,7 +1,7 @@
 "use client";
 
 import { PhoneMockup } from "../phone-mockup";
-import { Languages } from "lucide-react";
+import { Languages, Check } from "lucide-react";
 
 export const SectionLanguage = () => {
   return (
@@ -24,14 +24,42 @@ export const SectionLanguage = () => {
               <span>Global Fluency</span>
             </div>
             
-            <h2 className="text-3xl lg:text-5xl font-heading font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+            <h2 className="text-3xl lg:text-5xl font-heading font-bold text-slate-900 dark:text-white mb-8 leading-tight">
               Fluency in <br />
-              <span className="text-purple-600 dark:text-purple-400">Target Language.</span>
+              <span className="text-purple-600 dark:text-purple-400">Any Language.</span>
             </h2>
             
-            <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-              Prepare for the specific exam required by your target university. Track progress from A1 to C2 with our integrated curriculum.
-            </p>
+            <div className="space-y-4 mb-8 text-left">
+              <div className="flex gap-3">
+                <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                  <Check className="w-3 h-3" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-lg">CEFR-Aligned Mastery (A1–C2)</h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">Structured progression from beginner to native-level proficiency.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                  <Check className="w-3 h-3" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-lg">Exam-Specific Prep</h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">Targeted training for IELTS, TOEFL, TestDaF, and DELF.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                  <Check className="w-3 h-3" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-lg">University Compliance</h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">Meet strict linguistic requirements for global admissions.</p>
+                </div>
+              </div>
+            </div>
 
             <div className="grid grid-cols-2 gap-6">
                 <div className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
