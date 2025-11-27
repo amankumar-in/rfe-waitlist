@@ -15,10 +15,8 @@ export const metadata: Metadata = {
   keywords: ["education", "study abroad", "scholarships", "university", "AI tutoring", "student finance", "visa assistance", "international education"],
   authors: [{ name: "Rewards For Education" }],
   creator: "Rewards For Education",
-  icons: {
-    icon: "/assets/images/global.png",
-    shortcut: "/assets/images/global.png",
-    apple: "/assets/images/global.png",
+  appleWebApp: {
+    title: "RFE",
   },
   openGraph: {
     type: "website",
