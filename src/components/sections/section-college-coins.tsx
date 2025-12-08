@@ -124,7 +124,7 @@ export const SectionCollegeCoins = () => {
             </p>
 
             <Link 
-              href="https://coinsforcollege.org" 
+              href="https://coinsforcollege.org/college-coins" 
               target="_blank"
               className="inline-flex items-center gap-2 text-white font-medium hover:text-indigo-200 transition-colors group"
             >
