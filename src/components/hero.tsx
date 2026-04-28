@@ -71,17 +71,27 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
 
       <div className="absolute top-0 left-0 w-full z-20 pt-6">
         <div className="container mx-auto px-4">
-          <div className="flex items-center gap-3">
-            <Image 
-              src="/assets/images/global.png" 
-              alt="Globe Icon" 
-              width={24} 
-              height={24} 
-              className="w-6 h-6"
-            />
-            <span className="font-heading font-extrabold text-xl tracking-wider text-slate-900 dark:text-white">
-              REWARDS FOR EDUCATION
-            </span>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <Image
+                src="/assets/images/global.png"
+                alt="Globe Icon"
+                width={24}
+                height={24}
+                className="w-6 h-6"
+              />
+              <span className="font-heading font-extrabold text-base sm:text-xl tracking-wider text-slate-900 dark:text-white">
+                REWARDS FOR EDUCATION
+              </span>
+            </div>
+            <a
+              href="/colleges"
+              className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-brand-DEFAULT dark:hover:text-brand-accent transition-colors whitespace-nowrap"
+            >
+              <span className="hidden sm:inline">For Colleges</span>
+              <span className="sm:hidden">Colleges</span>
+              <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+            </a>
           </div>
         </div>
       </div>

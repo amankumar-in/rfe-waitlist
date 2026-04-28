@@ -57,14 +57,23 @@ export const StickyHeader = () => {
                 </span>
               </div>
 
-              {/* Action Button */}
-              <button
-                onClick={scrollToTop}
-                className="inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-medium text-white transition-all duration-200 bg-brand-DEFAULT hover:bg-brand-dark rounded-full shadow-lg shadow-brand-DEFAULT/25 hover:shadow-brand-DEFAULT/40 hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <span>Join Waitlist</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              {/* Right side: For Colleges link + Action button */}
+              <div className="flex items-center gap-3 sm:gap-5">
+                <a
+                  href="/colleges"
+                  className="group hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-DEFAULT dark:hover:text-brand-accent transition-colors whitespace-nowrap"
+                >
+                  For Colleges
+                  <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+                </a>
+                <button
+                  onClick={scrollToTop}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-medium text-white transition-all duration-200 bg-brand-DEFAULT hover:bg-brand-dark rounded-full shadow-lg shadow-brand-DEFAULT/25 hover:shadow-brand-DEFAULT/40 hover:-translate-y-0.5 active:translate-y-0"
+                >
+                  <span>Join Waitlist</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
         </motion.header>
