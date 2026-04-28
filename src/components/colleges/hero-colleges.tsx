@@ -81,21 +81,23 @@ export const HeroColleges = () => {
             existing systems.
           </p>
 
-          <div className="mt-14 flex flex-wrap gap-4">
+          <div className="mt-14 flex flex-row flex-nowrap items-stretch gap-3 sm:gap-4">
             <Link
               href="/colleges/contact?mode=info"
-              className="group inline-flex items-center gap-2 bg-white text-slate-950 font-semibold px-7 py-4 rounded-full hover:bg-slate-100 transition-colors"
+              className="group inline-flex items-center justify-center gap-2 bg-white text-slate-950 font-semibold px-5 sm:px-7 py-3.5 sm:py-4 rounded-full hover:bg-slate-100 transition-colors text-sm sm:text-base whitespace-nowrap"
             >
-              <MessageSquare className="w-4 h-4" />
-              Request more information
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <MessageSquare className="w-4 h-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Request more information</span>
+              <span className="sm:hidden">Request info</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
             </Link>
             <Link
               href="/colleges/contact?mode=offer"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-full border border-white/25 text-white font-semibold hover:border-white/60 hover:bg-white/5 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3.5 sm:py-4 rounded-full border border-white/25 text-white font-semibold hover:border-white/60 hover:bg-white/5 transition-colors text-sm sm:text-base whitespace-nowrap"
             >
-              <Download className="w-4 h-4" />
-              Read partnership offer
+              <Download className="w-4 h-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Read partnership document</span>
+              <span className="sm:hidden">Partnership doc</span>
             </Link>
           </div>
 
