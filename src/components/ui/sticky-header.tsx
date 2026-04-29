@@ -57,22 +57,21 @@ export const StickyHeader = () => {
                 </span>
               </div>
 
-              {/* Right side: For Colleges link + Action button */}
-              <div className="flex items-center gap-3 sm:gap-5">
-                <a
-                  href="/colleges"
-                  className="group hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-DEFAULT dark:hover:text-brand-accent transition-colors whitespace-nowrap"
-                >
-                  For Colleges
-                  <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
-                </a>
+              {/* Right side: Join Waitlist (secondary) + For Colleges (primary) */}
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   onClick={scrollToTop}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-medium text-white transition-all duration-200 bg-brand-DEFAULT hover:bg-brand-dark rounded-full shadow-lg shadow-brand-DEFAULT/25 hover:shadow-brand-DEFAULT/40 hover:-translate-y-0.5 active:translate-y-0"
+                  className="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-semibold border border-slate-200 dark:border-white/20 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors whitespace-nowrap"
                 >
-                  <span>Join Waitlist</span>
-                  <ArrowRight className="w-4 h-4" />
+                  Join Waitlist
                 </button>
+                <a
+                  href="/colleges"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-semibold text-white transition-all duration-200 bg-brand-DEFAULT hover:bg-brand-dark rounded-full shadow-lg shadow-brand-DEFAULT/25 hover:shadow-brand-DEFAULT/40 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap"
+                >
+                  <span>For Colleges</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
               </div>
             </div>
           </div>

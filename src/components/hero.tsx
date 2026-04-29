@@ -86,11 +86,10 @@ export const Hero = ({ showForm = true, onFormComplete }: HeroProps) => {
             </div>
             <a
               href="/colleges"
-              className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-brand-DEFAULT dark:hover:text-brand-accent transition-colors whitespace-nowrap"
+              className="inline-flex items-center px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-brand-DEFAULT text-white shadow-lg shadow-brand-DEFAULT/25 hover:bg-brand-dark hover:shadow-brand-DEFAULT/40 transition-all whitespace-nowrap"
             >
               <span className="hidden sm:inline">For Colleges</span>
               <span className="sm:hidden">Colleges</span>
-              <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
             </a>
           </div>
         </div>

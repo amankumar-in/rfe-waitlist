@@ -32,24 +32,32 @@ export const NavColleges = () => {
 
           <nav className="hidden lg:flex items-center gap-8 text-sm text-slate-300">
             <a href="#capabilities" className="hover:text-white transition-colors">
-              Platform
+              Capabilities
             </a>
             <a href="#operations" className="hover:text-white transition-colors">
-              NAAC Solutions
+              Integration
             </a>
             <a href="#expansion" className="hover:text-white transition-colors">
-              Documentation
+              Expansion
             </a>
           </nav>
 
-          <Link
-            href="/colleges/contact?mode=info"
-            className="group inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-full bg-white text-slate-900 text-xs sm:text-sm font-semibold hover:bg-brand-accent hover:text-slate-900 transition-colors flex-shrink-0 whitespace-nowrap"
-          >
-            <span className="hidden sm:inline">Evaluate Partnership</span>
-            <span className="sm:hidden">Evaluate</span>
-            <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
+          <div className="flex items-center gap-3 sm:gap-5 flex-shrink-0">
+            <Link
+              href="/"
+              className="text-xs sm:text-sm font-medium text-slate-300 hover:text-white transition-colors whitespace-nowrap"
+            >
+              For Students
+            </Link>
+            <Link
+              href="/colleges/contact?mode=info"
+              className="group inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-full bg-white text-slate-900 text-xs sm:text-sm font-semibold hover:bg-brand-accent hover:text-slate-900 transition-colors whitespace-nowrap"
+            >
+              <span className="hidden sm:inline">Evaluate Partnership</span>
+              <span className="sm:hidden">Evaluate</span>
+              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          </div>
         </div>
       </div>
     </header>
